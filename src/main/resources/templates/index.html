@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    addEventListener('load', () => {
+        init()
+    })
+    function init(){
+        getData()
+    }
+    async function getData() {
+        await fetch('/api/productos').then(async (e) => {
+            const data = await  e.json()
+            console.log(data)
+
+            const body = document.querySelector('body')
+            let productos = ""
+            data.forEach((product) => {
+               productos = productos + `
+                <div style="margin: 2rem; display: inline-block">
+                    <div>
+                        <span> ${product.codigo}- ${product.nombre}</span>
+                    </div>
+                    <img src="${product.imagen}" />
+                    <div><span>${product.precio}</span></div>
+                </div>
+               `
+            })
+            body.innerHTML = productos
+
+        })
+    }
+</script>
+</body>
+</html>
